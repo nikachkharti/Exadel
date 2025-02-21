@@ -106,7 +106,8 @@ namespace BookManagement.Service.Implementations
                 throw new BookNotFoundException(bookId.ToString());
             }
 
-            //TODO update book views before return.
+            await _bookRepository.IncreaseView(bookId);
+
             return _mapper.Map<BookForGettingDto>(bookEntity);
         }
 

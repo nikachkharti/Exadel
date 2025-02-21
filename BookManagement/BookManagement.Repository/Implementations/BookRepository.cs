@@ -25,5 +25,15 @@ namespace BookManagement.Repository.Implementations
                 entityFromDb.AuthorName = entity.AuthorName;
             }
         }
+
+        public async Task IncreaseView(Guid bookId)
+        {
+            var entityFromDb = await _context.Books.FirstOrDefaultAsync(x => x.Id == bookId);
+
+            if (entityFromDb is not null)
+            {
+                entityFromDb.ViewCount += 1;
+            }
+        }
     }
 }

@@ -32,6 +32,8 @@ namespace BookManagement.API.Controllers
         public async Task<IActionResult> GetBookDetails([FromRoute] Guid id)
         {
             var result = await unitOfWork.BookService.GetBookDetails(id);
+            await unitOfWork.Save();//Saves view increment operation
+
             var response = new EndpointResponse(EndpointResponseMessage.SuccessMessage, isSuccess: true, result, 200);
 
             return StatusCode(response.StatusCode, response);
