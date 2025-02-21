@@ -49,6 +49,21 @@ namespace BookManagement.API.Controllers
 
 
         /// <summary>
+        /// Add multiple books.
+        /// </summary>
+        /// <param name="model">Hashset of book models</param>
+        /// <returns>IActionResult</returns>
+        [HttpPost("add/multiple")]
+        public async Task<IActionResult> AddMultipleBooks([FromBody] HashSet<BookForCreatingDto> model)
+        {
+            var result = await unitOfWork.BookService.AddMultipleBooks(model);
+            await unitOfWork.Save();
+
+            return Ok(result);
+        }
+
+
+        /// <summary>
         /// Delete single book.
         /// </summary>
         /// <param name="id">Book id</param>

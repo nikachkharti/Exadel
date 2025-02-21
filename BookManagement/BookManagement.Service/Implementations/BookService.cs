@@ -20,9 +20,27 @@ namespace BookManagement.Service.Implementations
             _mapper = MappingInitializer.Initialize();
         }
 
-        public Task<IEnumerable<Guid>> AddMultipleBooks(HashSet<BookForCreatingDto> booksForCreatingDto)
+        public async Task<IEnumerable<Guid>> AddMultipleBooks(HashSet<BookForCreatingDto> booksForCreatingDto)
         {
-            throw new NotImplementedException();
+            HashSet<Guid> result = new();
+
+            if (!booksForCreatingDto.Any())
+            {
+                throw new BadRequestException("Invalid argument passed", $"{nameof(booksForCreatingDto)} argument contains no elements");
+            }
+
+            foreach (var item in booksForCreatingDto)
+            {
+                var bookEntity = _mapper.Map<Book>(item);
+
+                if (!await BookAlreadyExists(bookEntity.Title))
+                {
+                    await _bookRepository.AddAsync(bookEntity);
+                    result.Add(bookEntity.Id);
+                }
+            }
+
+            return result;
         }
 
         public async Task<Guid> AddSingleBook(BookForCreatingDto bookForCreatingDto)
