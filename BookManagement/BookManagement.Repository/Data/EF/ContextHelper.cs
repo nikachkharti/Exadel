@@ -27,18 +27,23 @@ namespace BookManagement.Repository.Data.EF
                 //PublicationYear
                 modelBuilder.Entity<Book>()
                     .Property(b => b.PublicationYear)
+                    .IsRequired()
                     .HasColumnType("DATE");
 
                 //ViewCount
                 entity.Property(b => b.ViewCount)
                     .IsRequired();
 
-
                 //AuthorName
                 entity
                     .Property(a => a.AuthorName)
                     .IsRequired()
                     .HasMaxLength(100);
+
+                //Age
+                modelBuilder.Entity<Book>()
+                    .Property(b => b.Age)
+                    .HasComputedColumnSql("DATEDIFF(YEAR, PublicationYear, GETDATE())", stored: false);
             });
         }
         public static void SeedBooks(this ModelBuilder modelBuilder)

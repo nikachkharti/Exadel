@@ -7,5 +7,6 @@
         public string AuthorName { get; set; }
         public DateTime PublicationYear { get; set; }
         public int ViewCount { get; set; }
+        public int Age { get; set; }
     }
 }
