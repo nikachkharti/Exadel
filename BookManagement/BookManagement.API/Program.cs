@@ -13,6 +13,7 @@ namespace BookManagement.API
             builder.AddEndpointsApiExplorer();
             builder.AddSwagger();
             builder.AddDatabase();
+            builder.AddUnitOfWork();
 
             var app = builder.Build();
 
