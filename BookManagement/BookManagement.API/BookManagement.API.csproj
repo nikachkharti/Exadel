@@ -22,4 +22,10 @@
 		<Folder Include="Middleware\" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\BookManagement.Models\BookManagement.Models.csproj" />
+	  <ProjectReference Include="..\BookManagement.Repository\BookManagement.Repository.csproj" />
+	  <ProjectReference Include="..\BookManagement.Service\BookManagement.Service.csproj" />
+	</ItemGroup>
+
 </Project>
