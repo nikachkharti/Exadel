@@ -18,10 +18,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Controllers\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <ProjectReference Include="..\BookManagement.Models\BookManagement.Models.csproj" />
 	  <ProjectReference Include="..\BookManagement.Repository\BookManagement.Repository.csproj" />
 	  <ProjectReference Include="..\BookManagement.Service\BookManagement.Service.csproj" />
