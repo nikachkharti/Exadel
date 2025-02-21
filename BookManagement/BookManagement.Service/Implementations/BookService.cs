@@ -6,7 +6,6 @@ using BookManagement.Service.Contracts;
 using BookManagement.Service.Exceptions;
 using BookManagement.Service.Exceptions.Base.Exceptions;
 using BookManagement.Service.Mapping;
-using System.Net;
 
 namespace BookManagement.Service.Implementations
 {
@@ -130,9 +129,22 @@ namespace BookManagement.Service.Implementations
             return result;
         }
 
-        public Task<Guid> UpdateSingleBook(BookForUpdatingDto bookForUpdatingDto)
+        public async Task<Guid> UpdateSingleBook(BookForUpdatingDto bookForUpdatingDto)
         {
-            throw new NotImplementedException();
+            if (bookForUpdatingDto is null)
+                throw new BadRequestException("Invalid argument passed", $"{nameof(bookForUpdatingDto)} is an invalid argument");
+
+            if (await _bookRepository.GetAsync(x => x.Id == bookForUpdatingDto.Id) is null)
+                throw new BookNotFoundException(bookForUpdatingDto.Id.ToString());
+
+            if (await BookAlreadyExists(bookForUpdatingDto.Title))
+                throw new BookAlreadyExistsException(bookForUpdatingDto.Title);
+
+
+            var bookEntity = _mapper.Map<Book>(bookForUpdatingDto);
+            await _bookRepository.Update(bookEntity);
+
+            return bookEntity.Id;
         }
 
         private async Task<bool> BookAlreadyExists(string bookName)

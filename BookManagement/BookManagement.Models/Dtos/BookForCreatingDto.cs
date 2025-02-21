@@ -17,7 +17,6 @@ namespace BookManagement.Models.Dtos
         [Required]
         public int ViewCount { get; set; } = 0;
 
-
         public override bool Equals(object obj) => new BookForCreatingDtoEquilityComparer().Equals(this, obj as BookForCreatingDto);
         public override int GetHashCode() => new BookForCreatingDtoEquilityComparer().GetHashCode(this);
     }

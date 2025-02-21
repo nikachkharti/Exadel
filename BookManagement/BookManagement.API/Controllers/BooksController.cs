@@ -92,5 +92,19 @@ namespace BookManagement.API.Controllers
             return Ok(result);
         }
 
+
+        /// <summary>
+        /// Update single book.
+        /// </summary>
+        /// <param name="model">Update model</param>
+        /// <returns>IActionResult</returns>
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateSingleBook([FromForm] BookForUpdatingDto model)
+        {
+            var result = await unitOfWork.BookService.UpdateSingleBook(model);
+            await unitOfWork.Save();
+
+            return Ok(result);
+        }
     }
 }
