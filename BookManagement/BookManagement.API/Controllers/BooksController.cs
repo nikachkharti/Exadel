@@ -69,12 +69,28 @@ namespace BookManagement.API.Controllers
         /// <param name="id">Book id</param>
         /// <returns>IActionResult</returns>
         [HttpDelete("delete/single/{id:guid}")]
-        public async Task<IActionResult> DeleteBook([FromRoute] Guid id)
+        public async Task<IActionResult> DeleteSingleBook([FromRoute] Guid id)
         {
             var result = await unitOfWork.BookService.DeleteSingleBook(id);
             await unitOfWork.Save();
 
             return Ok(result);
         }
+
+
+        /// <summary>
+        /// Delete multiple books.
+        /// </summary>
+        /// <param name="ids">Argument</param>
+        /// <returns>IActionResult</returns>
+        [HttpDelete("delete/multiple")]
+        public async Task<IActionResult> DeleteMultipleBooks([FromBody] HashSet<Guid> ids)
+        {
+            var result = await unitOfWork.BookService.DeleteMultipleBooks(ids);
+            await unitOfWork.Save();
+
+            return Ok(result);
+        }
+
     }
 }

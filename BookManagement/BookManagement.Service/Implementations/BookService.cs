@@ -6,6 +6,7 @@ using BookManagement.Service.Contracts;
 using BookManagement.Service.Exceptions;
 using BookManagement.Service.Exceptions.Base.Exceptions;
 using BookManagement.Service.Mapping;
+using System.Net;
 
 namespace BookManagement.Service.Implementations
 {
@@ -61,9 +62,27 @@ namespace BookManagement.Service.Implementations
             return bookEntity.Id;
         }
 
-        public Task<IEnumerable<Guid>> DeleteMultipleBooks(HashSet<Guid> bookIds)
+        public async Task<IEnumerable<Guid>> DeleteMultipleBooks(HashSet<Guid> bookIds)
         {
-            throw new NotImplementedException();
+            HashSet<Guid> result = new();
+
+            if (!bookIds.Any())
+            {
+                throw new BadRequestException("Invalid argument passed", $"{nameof(bookIds)} argument contains no elements");
+            }
+
+            foreach (var id in bookIds)
+            {
+                var entityToDelete = await _bookRepository.GetAsync(x => x.Id == id);
+
+                if (entityToDelete is not null)
+                {
+                    _bookRepository.Remove(entityToDelete);
+                    result.Add(id);
+                }
+            }
+
+            return result;
         }
 
         public async Task<Guid> DeleteSingleBook(Guid bookId)
