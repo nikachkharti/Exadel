@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using BookManagement.Repository.Data.EF;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
@@ -57,6 +59,12 @@ namespace BookManagement.API.Extensions
                 #endregion
             });
         }
+
+        public static void AddDatabase(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SQLServerLocalConnection")));
+        }
+
 
     }
 }

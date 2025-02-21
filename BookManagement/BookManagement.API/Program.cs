@@ -11,6 +11,7 @@ namespace BookManagement.API
             builder.AddControllers();
             builder.AddEndpointsApiExplorer();
             builder.AddSwagger();
+            builder.AddDatabase();
 
             var app = builder.Build();
 
