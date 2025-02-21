@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BookManagement.Models.Dtos
+namespace BookManagement.Models.Dtos.Book
 {
     public class BookForUpdatingDto
     {

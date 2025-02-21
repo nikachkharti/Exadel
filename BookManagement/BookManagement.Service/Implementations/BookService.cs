@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BookManagement.Models.Dtos;
+using BookManagement.Models.Dtos.Book;
 using BookManagement.Models.Entities;
 using BookManagement.Repository.Contracts;
 using BookManagement.Service.Contracts;
@@ -108,10 +108,7 @@ namespace BookManagement.Service.Implementations
 
             await _bookRepository.IncreaseView(bookId);
 
-            var result = _mapper.Map<BookForGettingDto>(bookEntity);
-            result.PopularityScore = result.ViewCount * 0.5 + result.Age * 2;
-
-            return result;
+            return _mapper.Map<BookForGettingDto>(bookEntity);
         }
 
         public async Task<List<string>> GetPopularBooks(int pageNumber = 1, int pageSize = 10)
@@ -150,7 +147,6 @@ namespace BookManagement.Service.Implementations
 
             return bookEntity.Id;
         }
-
 
         private async Task<bool> BookAlreadyExists(string bookName)
         {

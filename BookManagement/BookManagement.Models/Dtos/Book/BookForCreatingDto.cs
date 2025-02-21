@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
-namespace BookManagement.Models.Dtos
+namespace BookManagement.Models.Dtos.Book
 {
     public class BookForCreatingDto
     {

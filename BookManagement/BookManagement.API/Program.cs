@@ -14,6 +14,12 @@ namespace BookManagement.API
             builder.AddSwagger();
             builder.AddDatabase();
             builder.AddUnitOfWork();
+            builder.ConfigureJwtOptions();
+            builder.AddIdentity();
+            builder.AddAuthentication();
+            builder.AddJwtTokenGenerator();
+            builder.AddAuthService();
+            builder.AddHttpContextAccessor();
 
             var app = builder.Build();
 
@@ -22,6 +28,7 @@ namespace BookManagement.API
             app.UseSwaggerUI();
             app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
             app.Run();
