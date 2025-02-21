@@ -14,6 +14,8 @@ namespace BookManagement.Models.Dtos
         [Required]
         [MaxLength(100)]
         public string AuthorName { get; set; }
+
+        [Required]
         public DateTime PublicationYear { get; set; }
 
         [Required]
