@@ -18,7 +18,9 @@ namespace BookManagement.API.Controllers
         public async Task<IActionResult> GetPopularBooks([FromQuery] int pageNumber, [FromQuery] int pageSize)
         {
             var result = await unitOfWork.BookService.GetPopularBooks(pageNumber, pageSize);
-            return Ok(result);
+            var response = new EndpointResponse(EndpointResponseMessage.SuccessMessage, isSuccess: true, result, 200);
+
+            return StatusCode(response.StatusCode, response);
         }
 
         /// <summary>
@@ -30,7 +32,9 @@ namespace BookManagement.API.Controllers
         public async Task<IActionResult> GetBookDetails([FromRoute] Guid id)
         {
             var result = await unitOfWork.BookService.GetBookDetails(id);
-            return Ok(result);
+            var response = new EndpointResponse(EndpointResponseMessage.SuccessMessage, isSuccess: true, result, 200);
+
+            return StatusCode(response.StatusCode, response);
         }
 
         /// <summary>
@@ -44,7 +48,8 @@ namespace BookManagement.API.Controllers
             var result = await unitOfWork.BookService.AddSingleBook(model);
             await unitOfWork.Save();
 
-            return Ok(result);
+            var response = new EndpointResponse(EndpointResponseMessage.SuccessMessage, isSuccess: true, result, 201);
+            return StatusCode(response.StatusCode, response);
         }
 
 
@@ -59,7 +64,8 @@ namespace BookManagement.API.Controllers
             var result = await unitOfWork.BookService.AddMultipleBooks(model);
             await unitOfWork.Save();
 
-            return Ok(result);
+            var response = new EndpointResponse(EndpointResponseMessage.SuccessMessage, isSuccess: true, result, 201);
+            return StatusCode(response.StatusCode, response);
         }
 
 
@@ -74,7 +80,8 @@ namespace BookManagement.API.Controllers
             var result = await unitOfWork.BookService.DeleteSingleBook(id);
             await unitOfWork.Save();
 
-            return Ok(result);
+            var response = new EndpointResponse(EndpointResponseMessage.SuccessMessage, isSuccess: true, result, 204);
+            return StatusCode(response.StatusCode, response);
         }
 
 
@@ -89,7 +96,8 @@ namespace BookManagement.API.Controllers
             var result = await unitOfWork.BookService.DeleteMultipleBooks(ids);
             await unitOfWork.Save();
 
-            return Ok(result);
+            var response = new EndpointResponse(EndpointResponseMessage.SuccessMessage, isSuccess: true, result, 204);
+            return StatusCode(response.StatusCode, response);
         }
 
 
@@ -104,7 +112,8 @@ namespace BookManagement.API.Controllers
             var result = await unitOfWork.BookService.UpdateSingleBook(model);
             await unitOfWork.Save();
 
-            return Ok(result);
+            var response = new EndpointResponse(EndpointResponseMessage.SuccessMessage, isSuccess: true, result, 200);
+            return StatusCode(response.StatusCode, response);
         }
     }
 }
