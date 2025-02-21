@@ -9,11 +9,13 @@ namespace BookManagement.Service.Implementations
     {
         private readonly ApplicationDbContext _context;
         public IBookRepository BookRepository { get; private set; }
+        public IBookService BookService { get; private set; }
 
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
             BookRepository = new BookRepository(context);
+            BookService = new BookService(BookRepository);
         }
 
         public async Task<int> Save() => await _context.SaveChangesAsync();
