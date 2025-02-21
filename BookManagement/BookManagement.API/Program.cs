@@ -1,4 +1,5 @@
 using BookManagement.API.Extensions;
+using BookManagement.API.Middleware;
 
 namespace BookManagement.API
 {
@@ -15,6 +16,7 @@ namespace BookManagement.API
 
             var app = builder.Build();
 
+            app.CreateDatabaseAutomatically();
             app.UseSwagger();
             app.UseSwaggerUI();
             app.UseHttpsRedirection();
