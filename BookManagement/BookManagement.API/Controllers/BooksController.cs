@@ -1,5 +1,6 @@
-﻿using BookManagement.Models.Dtos;
+﻿using BookManagement.Models.Dtos.Book;
 using BookManagement.Service.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookManagement.API.Controllers
@@ -45,6 +46,7 @@ namespace BookManagement.API.Controllers
         /// <param name="model">Book model</param>
         /// <returns>IActionResult</returns>
         [HttpPost("add/single")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddSingleBook([FromForm] BookForCreatingDto model)
         {
             var result = await unitOfWork.BookService.AddSingleBook(model);
@@ -61,6 +63,7 @@ namespace BookManagement.API.Controllers
         /// <param name="model">Hashset of book models</param>
         /// <returns>IActionResult</returns>
         [HttpPost("add/multiple")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddMultipleBooks([FromBody] HashSet<BookForCreatingDto> model)
         {
             var result = await unitOfWork.BookService.AddMultipleBooks(model);
@@ -77,6 +80,7 @@ namespace BookManagement.API.Controllers
         /// <param name="id">Book id</param>
         /// <returns>IActionResult</returns>
         [HttpDelete("delete/single/{id:guid}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteSingleBook([FromRoute] Guid id)
         {
             var result = await unitOfWork.BookService.DeleteSingleBook(id);
@@ -93,6 +97,7 @@ namespace BookManagement.API.Controllers
         /// <param name="ids">Argument</param>
         /// <returns>IActionResult</returns>
         [HttpDelete("delete/multiple")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteMultipleBooks([FromBody] HashSet<Guid> ids)
         {
             var result = await unitOfWork.BookService.DeleteMultipleBooks(ids);
@@ -109,6 +114,7 @@ namespace BookManagement.API.Controllers
         /// <param name="model">Update model</param>
         /// <returns>IActionResult</returns>
         [HttpPut("update")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateSingleBook([FromForm] BookForUpdatingDto model)
         {
             var result = await unitOfWork.BookService.UpdateSingleBook(model);

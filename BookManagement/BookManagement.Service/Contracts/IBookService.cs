@@ -1,4 +1,4 @@
-﻿using BookManagement.Models.Dtos;
+﻿using BookManagement.Models.Dtos.Book;
 
 namespace BookManagement.Service.Contracts
 {

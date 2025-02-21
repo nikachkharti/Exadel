@@ -1,4 +1,4 @@
-﻿namespace BookManagement.Models.Dtos
+﻿namespace BookManagement.Models.Dtos.Book
 {
     public class BookForGettingDto
     {
